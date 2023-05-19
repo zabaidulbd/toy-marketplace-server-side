@@ -39,7 +39,7 @@ async function run() {
             }
             const result = await toyCollection.find(query).toArray();
             res.send(result);
-        })
+        });
 
 
         app.post('/toys', async (req, res) => {
