@@ -33,6 +33,12 @@ async function run() {
         // toys ...
 
         app.get('/toys', async (req, res) => {
+            const cursor = toyCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        app.get('/toys', async (req, res) => {
             let query = {};
             if (req.query?.email) {
                 query = { email: req.query.email }
@@ -84,8 +90,6 @@ async function run() {
             const result = await toyCollection.deleteOne(query);
             res.send(result);
         })
-
-
 
 
 
