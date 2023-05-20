@@ -64,6 +64,18 @@ async function run() {
         });
 
 
+        app.get('/toy/:text', async (req, res) => {
+            if (req.params.text == 'lego-cars'
+                || req.params.text == 'lego-city'
+                || req.params.text == 'lego-star-wars') {
+                const result = await toyCollection.find(
+                    { subCategory: req.params.text }
+                ).toArray();
+                return res.send(result)
+            }
+        });
+
+
         app.put('/toys/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) }
