@@ -30,6 +30,7 @@ async function run() {
 
         const toyCollection = client.db('allToy').collection('toys');
 
+
         // toys ...
 
         app.get('/toys', async (req, res) => {
@@ -38,13 +39,15 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/toys', async (req, res) => {
-            let query = {};
-            if (req.query?.email) {
-                query = { email: req.query.email }
-            }
-            const result = await toyCollection.find(query).toArray();
-            res.send(result);
+
+        app.get("/myToy/:email", async (req, res) => {
+            console.log(req.params.id);
+            const jobs = await toyCollection
+                .find({
+                    email: req.params.email,
+                })
+                .toArray();
+            res.send(jobs);
         });
 
 
