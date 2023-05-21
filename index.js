@@ -31,7 +31,7 @@ async function run() {
         const toyCollection = client.db('allToy').collection('toys');
 
 
-        // toys ...
+        // finding all toys ..
 
         app.get('/toys', async (req, res) => {
             const cursor = toyCollection.find().limit(20);
@@ -39,6 +39,7 @@ async function run() {
             res.send(result);
         })
 
+        // search toy with email
 
         app.get("/myToy/:email", async (req, res) => {
             console.log(req.params.id);
@@ -50,14 +51,7 @@ async function run() {
             res.send(jobs);
         });
 
-
-        app.post('/toys', async (req, res) => {
-            const toy = req.body;
-            console.log(toy)
-            const result = await toyCollection.insertOne(toy);
-            res.send(result);
-        });
-
+        // search a unique toy
 
         app.get('/toys/:id', async (req, res) => {
             const id = req.params.id;
@@ -66,6 +60,7 @@ async function run() {
             res.send(result);
         });
 
+        // search by a category
 
         app.get('/toy/:text', async (req, res) => {
             if (req.params.text == 'lego-cars'
@@ -78,6 +73,18 @@ async function run() {
             }
         });
 
+        // for add operation
+
+        app.post('/toys', async (req, res) => {
+            const toy = req.body;
+            console.log(toy)
+            const result = await toyCollection.insertOne(toy);
+            res.send(result);
+        });
+
+
+
+        // for update operation
 
         app.put('/toys/:id', async (req, res) => {
             const id = req.params.id;
@@ -97,7 +104,7 @@ async function run() {
         });
 
 
-
+        // for delete operation
 
         app.delete('/toys/:id', async (req, res) => {
             const id = req.params.id;
